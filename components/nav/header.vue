@@ -1,5 +1,5 @@
 <template>
-  <header class="flex items-center h-14 px-4 lg:px-6 border-b border-gray-800">
+  <header class="flex items-center h-14 px-4 lg:px-6 border-b border-gray-800 w-100">
     <NuxtLink to="#" class="flex items-center justify-center">
       <NavLogo class="h-6 w-6 text-neon-500" />
       <!-- <span class="sr-only">Artistic Coding</span> -->
