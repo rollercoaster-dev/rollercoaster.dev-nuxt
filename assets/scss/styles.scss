@@ -50,7 +50,7 @@
 
   /* Applying the custom properties globally */
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply dark bg-background text-foreground antialiased;
   }
 
   /* Enforcing border styles with a custom property */
@@ -61,5 +61,7 @@
   /* Ensuring full height layout on body and root elements */
   body, html, #__nuxt{
     height: 100%;
+    min-height: 100lvh;
+;
   }
 }
