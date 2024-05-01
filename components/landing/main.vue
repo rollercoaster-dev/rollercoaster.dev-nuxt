@@ -1,7 +1,7 @@
 <template>
-  <section className="w-full py-12 md:py-24 lg:py-32">
-    <div className="container px-4 md:px-6">
-      <div className="flex flex-col items-center space-y-4 text-center">
+  <section class="w-full py-12 md:py-24 lg:py-32">
+    <div class="container px-4 md:px-6">
+      <div class="flex flex-col items-center space-y-4 text-center">
         <BaseHeroText :title="title" :description="description" />
       </div>
     </div>
