@@ -1,7 +1,7 @@
 <template>
-  <header class="flex items-center h-14 px-4 lg:px-6 border-b border-gray-800 w-100">
+  <header class="flex items-center h-14 px-4 lg:px-6 border-b border-primary w-100">
     <NuxtLink to="#" class="flex items-center justify-center">
-      <NavLogo class="h-6 w-6 text-neon-500" />
+      <NavLogo class="h-6 w-6 " />
       <!-- <span class="sr-only">Artistic Coding</span> -->
     </NuxtLink>
     <NavLinks :items="navItems" />

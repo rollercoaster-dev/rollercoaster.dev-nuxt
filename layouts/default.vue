@@ -4,7 +4,7 @@
     <main class="flex flex-col flex-grow">
       <NuxtPage />
     </main>
-    <BaseFooter :copyright-text="copyrightText" :links="footerLinks" />
+    <NavFooter :copyright-text="copyrightText" :links="footerLinks" />
   </div>
 </template>
 

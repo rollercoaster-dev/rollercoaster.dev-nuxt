@@ -10,7 +10,13 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/scss/styles.scss'],
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxtjs/color-mode'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/strapi',
+  ],
+
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -24,5 +30,10 @@ export default defineNuxtConfig({
   },
   colorMode: {
     classSuffix: '',
+  },
+  strapi: {
+    url: process.env.STRAPI_URL || 'http://localhost:1337',
+    version: 'v4',
+    prefix: '/api',
   },
 });

@@ -1,6 +1,6 @@
 <template>
   <footer
-          class="w-full py-6 px-4 md:px-6 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between">
+          class="w-full py-6 px-4 md:px-6 border-t border-primary flex flex-col sm:flex-row items-center justify-between">
     <p class="text-xs text-gray-400">
       {{ copyrightText }}
     </p>

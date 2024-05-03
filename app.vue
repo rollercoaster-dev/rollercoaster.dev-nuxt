@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useDarkMode()
+// useDarkMode()
 </script>
 <template>
   <NuxtLayout>
