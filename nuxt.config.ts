@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     '@nuxtjs/color-mode',
     '@nuxtjs/strapi',
+    "@hebilicious/vue-query-nuxt"
   ],
 
   shadcn: {
