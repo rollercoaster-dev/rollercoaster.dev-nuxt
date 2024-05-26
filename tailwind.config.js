@@ -1,4 +1,3 @@
-const animate = require("tailwindcss-animate")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -22,9 +21,6 @@ module.exports = {
       },
     },
     extend: {
-      fontSize: {
-        base: '1.125rem', // This is 18px when 1rem = 16px base, you might adjust the base font-size in CSS directly
-      },
       // Configure custom font sizes based on the new base size
       fontFamily: {
         headings: ['"Fira Code"', 'monospace'], // Custom font for headings
@@ -111,5 +107,5 @@ module.exports = {
     },
     
   },
-  plugins: [animate],
+  plugins: [require("tailwindcss-animate")],
 }

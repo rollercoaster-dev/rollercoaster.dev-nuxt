@@ -9,8 +9,13 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
+  "overrides": {
+    "consola": "^3.0.0"
+  },
   "dependencies": {
+    "@apollo/client": "^3.10.4",
     "@hebilicious/vue-query-nuxt": "^0.3.0",
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/color-mode": "^3.4.0",
     "@nuxtjs/dotenv": "^1.4.2",
     "@nuxtjs/proxy": "^2.1.0",
@@ -20,9 +25,9 @@
     "@tanstack/vue-query": "^5.37.1",
     "@vueuse/core": "^10.9.0",
     "@vueuse/nuxt": "^10.9.0",
-    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "graphql": "^16.8.1",
     "nuxt": "^3.11.2",
     "radix-vue": "^1.7.1",
     "shadcn-nuxt": "latest",
@@ -33,7 +38,9 @@
     "vue-sonner": "^1.1.2"
   },
   "devDependencies": {
+    "@nuxtjs/apollo": "next",
     "@tanstack/eslint-plugin-query": "^5.32.1",
+    "add": "^2.0.6",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "sass": "^1.75.0",

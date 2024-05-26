@@ -1,23 +1,48 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
+  runtimeConfig: {
+    public: {
+      strapiUrl: `${process.env.STRAPI_URL}/api`,
+    },
+    private: {
+      strapiToken: process.env.STRAPI_TOKEN,
+    }
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
-
   css: ['~/assets/scss/styles.scss'],
   modules: [
     '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
     '@nuxtjs/color-mode',
     '@nuxtjs/strapi',
-    "@hebilicious/vue-query-nuxt"
+    '@nuxtjs/apollo',
   ],
-
+  nitro: {
+    devProxy: {
+      '/strapi': {
+        target: `${process.env.STRAPI_URL}/api`,
+        changeOrigin: true,
+      },
+    },
+  },
+  apollo: {
+    clients: {
+      default: {
+        httpEndpoint: `${process.env.STRAPI_URL}/graphql`,
+        httpLinkOptions: {
+          headers: {
+            'Authorization': `Bearer ${process.env.STRAPI_TOKEN}`,
+          }
+        }
+      }
+    },
+  },
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -37,4 +62,9 @@ export default defineNuxtConfig({
     version: 'v4',
     prefix: '/api',
   },
+  vite: {
+    plugins: [
+      require('dotenv').config({ path: './.env' })
+    ]
+  }
 });
