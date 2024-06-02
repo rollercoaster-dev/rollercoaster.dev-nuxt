@@ -1,23 +1,23 @@
 <template>
-  <!--<LandingMain :title="title" :description="description" /> -->
-  <template v-for="(component, i) in components">
-   {{i}} {{component}}
+  <template v-for="(component) in components" :key="component.id">
+    {{component.type}}
+    <component :is="component.component" v-bind="component.props" />
   </template>
 </template>
 
 <script setup lang="ts">
-import type {PageAttributes} from "@/types/strapi.types";
 import {useStrapiQueries} from "@/composables/useStrapiQueries"
 import {useStrapiGraphql} from "@/composables/useStrapiGraphql";
-
-const {fetchStrapiData} = useStrapiQueries();
 
 const title = 'rollercoaster.dev'
 const description = 'Exploring the intersection of technology, art and learning.'
 
-const {getPage} = useStrapiGraphql()
+const {getPage, getCleanComponents} = useStrapiGraphql()
 const home = await getPage("home")
-const {components} = home
+const components = computed(()=> {
+  return getCleanComponents(home)
+})
+
 </script>
 
 <style scoped></style>

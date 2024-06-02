@@ -4,10 +4,14 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       strapiUrl: `${process.env.STRAPI_URL}/api`,
+      strapiBaseUrl: process.env.STRAPI_URL,
     },
     private: {
       strapiToken: process.env.STRAPI_TOKEN,
     }
+  },
+  alias: {
+    '@strapi': process.env.STRAPI_URL,
   },
   postcss: {
     plugins: {

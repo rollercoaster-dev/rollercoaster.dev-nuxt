@@ -1,16 +1,10 @@
+const animate = require("tailwindcss-animate")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // darkMode: "class",
-  // safelist: ["dark"],
+  darkMode: ["class"],
+  safelist: ["dark"],
   prefix: "",
-  content: [
-    './components/**/*.{vue,js}',
-    './layouts/**/*.vue',
-    './pages/**/*.vue',
-    './plugins/**/*.{js,ts}',
-    './nuxt.config.{js,ts}',
-  ],
   
   theme: {
     container: {
@@ -21,24 +15,6 @@ module.exports = {
       },
     },
     extend: {
-      // Configure custom font sizes based on the new base size
-      fontFamily: {
-        headings: ['"Fira Code"', 'monospace'], // Custom font for headings
-        body: ['Inter', 'sans-serif'], // Custom font for body text
-      },
-      // Customize font sizes relative to the new base size if needed
-      fontSize: {
-        xs: '0.75rem',   // 13.5px
-        sm: '0.875rem',  // 15.75px
-        md: '1rem',      // 18px
-        lg: '1.125rem',  // 20.25px
-        xl: '1.25rem',   // 22.5px
-        '2xl': '1.5rem', // 27px
-        '3xl': '1.875rem', // 33.75px
-        '4xl': '2.25rem', // 40.5px
-        '5xl': '3rem',   // 54px
-      },
-    
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -105,7 +81,6 @@ module.exports = {
         "collapsible-up": "collapsible-up 0.2s ease-in-out",
       },
     },
-    
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 }
