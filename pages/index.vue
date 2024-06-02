@@ -15,8 +15,8 @@ const {fetchStrapiData} = useStrapiQueries();
 const title = 'rollercoaster.dev'
 const description = 'Exploring the intersection of technology, art and learning.'
 
-const {getHomePage} = useStrapiGraphql()
-const home = await getHomePage()
+const {getPage} = useStrapiGraphql()
+const home = await getPage("home")
 const {components} = home
 </script>
 

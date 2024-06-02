@@ -14,6 +14,7 @@ defineProps<HeroTextProps>();
     <p class="mx-auto max-w-[700px] text-gray-400 md:text-xl lg:text-base/relaxed xl:text-xl/relaxed">
       {{ description }}
     </p>
+
   </div>
 </template>
 

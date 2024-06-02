@@ -31,10 +31,10 @@ export const useStrapiGraphql = () => {
     return data.value !== null ? parsePageData(data.value) : [];
   };
 
-  const getHomePage = async () => {
+  const getPage = async (page: string) => {
     const query = gql`
       query {
-        pages: pages(filters: { slug: { eq: "home" } }) {
+        pages: pages(filters: { slug: { eq: "${page}" } }) {
           data {
             attributes {
               title
@@ -71,5 +71,5 @@ export const useStrapiGraphql = () => {
     console.log({home: data.value})
       return data.value?.pages.data[0].attributes as PageAttributes;
   };
-  return { getPageLinks, getHomePage };
+  return { getPageLinks, getPage };
 };
