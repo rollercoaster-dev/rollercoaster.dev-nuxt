@@ -6,6 +6,7 @@ import ImageBlock from "./Blocks/Image.vue";
 import LinkBlock from "./Blocks/Link.vue";
 import TextBlock from "./Blocks/Text.vue";
 import CodeBlock from "./Blocks/CodeBlock.vue"
+import ListBlock from "./Blocks/List.vue"
 import type { BlocksRenderNode, BlocksValue } from "./types/blocks";
 
 export type Props = {
@@ -16,7 +17,6 @@ export type Props = {
 const props = defineProps<Props>();
 
 const componentForBlock = (block: BlocksRenderNode) => {
-  console.log(block.type)
   switch (block.type) {
     case "paragraph":
       return "p";
@@ -31,7 +31,7 @@ const componentForBlock = (block: BlocksRenderNode) => {
     case "image":
       return ImageBlock;
     case "list":
-      return block.format === "ordered" ? "ol" : "ul";
+      return ListBlock;
     case "list-item":
       return "li";
     default:

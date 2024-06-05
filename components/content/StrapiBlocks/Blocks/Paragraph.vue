@@ -13,3 +13,6 @@ defineProps<{
   block: ParagraphBlockNode;
 }>();
 </script>
+<style lang="scss" scoped>
+
+</style>

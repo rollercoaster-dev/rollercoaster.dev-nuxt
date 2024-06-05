@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type {CodeBlockNode, DefaultInlineNode, TextInlineNode} from "@/components/content/StrapiBlocks/types/blocks";
-import {codeToHtml} from 'shiki'
+import type { CodeBlockNode, DefaultInlineNode, TextInlineNode } from "@/components/content/StrapiBlocks/types/blocks";
+import { codeToHtml } from 'shiki'
 
 export type CodeBlockProps = {
   block: CodeBlockNode
@@ -13,7 +13,7 @@ onMounted(async () => {
   const codePromises = codeBlocks.map(block => {
     return codeToHtml(block.text, {
       lang: 'typescript',
-      theme: 'vitesse-dark'
+      theme: 'synthwave-84'
     });
   });
   const codeResults = await Promise.all(codePromises);
@@ -22,9 +22,20 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div v-html="codeHtml"></div>
+  <div v-html="codeHtml" class="code-block m-4"></div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/scss/_variables.scss";
 
+.code-block {
+
+  :deep() {
+    pre {
+      border-radius: 4px;
+      border: 1px solid $gray-dark;
+      padding: 1.5rem !important;
+    }
+  }
+}
 </style>

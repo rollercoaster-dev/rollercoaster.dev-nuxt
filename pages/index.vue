@@ -1,30 +1,7 @@
-<template>
-  <template v-for="(component) in components" :key="component.id">
-    <component :is="component.component" v-bind="component.props" />
-  </template>
-</template>
-
 <script setup lang="ts">
-import {useStrapiQueries} from "@/composables/useStrapiQueries"
-import {useStrapiGraphql} from "@/composables/useStrapiGraphql";
-definePageMeta({
-  name: "home"
-})
-const route = useRoute()
-
-
-onMounted(()=>{
-  console.log({route: route.name})
-})
-const title = 'rollercoaster.dev'
-const description = 'Exploring the intersection of technology, art and learning.'
-
-const {getPage, getCleanComponents} = useStrapiGraphql()
-const home = await getPage("home")
-const components = computed(()=> {
-  return getCleanComponents(home)
-})
-
+const router = useRouter();
+onMounted(async () => {
+  router.replace({ path: "/home",});
+});
 </script>
-
-<style scoped></style>
+<template>..</template>

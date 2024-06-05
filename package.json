@@ -33,6 +33,7 @@
     "radix-vue": "^1.8.2",
     "shadcn-nuxt": "latest",
     "shadcn-ui": "latest",
+    "tailwind": "latest",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "vue": "^3.4.21",

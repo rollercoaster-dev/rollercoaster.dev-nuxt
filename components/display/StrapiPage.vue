@@ -14,18 +14,14 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { useStrapiGraphql } from '@/composables/useStrapiGraphql';
+const props = defineProps({
+  pageName: String,
+})
 
 const route = useRoute();
-const { getPage, getCleanComponents } = useStrapiGraphql();
+const {getPage, getCleanComponents} = useStrapiGraphql();
 
-const pageName = computed(() => route.params.pageName);
-const pageTitle = computed(() => {
-  return pageName.value.charAt(0).toUpperCase() + pageName.value.slice(1);
-});
-
-const page = await getPage(pageName.value);
+const page = await getPage(props.pageName);
+console.log({pageName: props.pageName, route, page})
 const components = computed(() => getCleanComponents(page));
 </script>
