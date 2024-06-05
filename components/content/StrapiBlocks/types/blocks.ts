@@ -28,8 +28,8 @@ export interface ListItemInlineNode extends BaseNode {
 
 type InlineNode = TextInlineNode | LinkInlineNode | ListItemInlineNode;
 
-type DefaultInlineNode = Exclude<InlineNode, ListItemInlineNode>;
-type NonTextInlineNode = Exclude<InlineNode, TextInlineNode>;
+export type DefaultInlineNode = Exclude<InlineNode, ListItemInlineNode>;
+export type NonTextInlineNode = Exclude<InlineNode, TextInlineNode>;
 
 export interface ParagraphBlockNode extends BaseNode {
   type: "paragraph";

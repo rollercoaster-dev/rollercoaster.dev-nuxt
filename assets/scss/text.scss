@@ -1,0 +1,65 @@
+
+$font-size-base: 18px;
+
+$font-sizes: (
+        xs: 0.6667,   // 12px
+        sm: 0.7778,   // 14px
+        base: 1,      // 18px
+        lg: 1.1111,   // 20px
+        xl: 1.3333,   // 24px
+        2xl: 1.6667,  // 30px
+        3xl: 2,       // 36px
+        4xl: 2.6667,  // 48px
+        5xl: 3.5556,  // 64px
+);
+
+
+@function font-size($size) {
+  @return map-get($font-sizes, $size) * $font-size-base;
+}
+
+
+// Headings
+h1, .h1 {
+  @apply text-5xl font-bold leading-tight;
+}
+
+h2, .h2 {
+  @apply text-4xl font-bold leading-tight;
+}
+
+h3, .h3 {
+  @apply text-3xl font-bold leading-tight;
+}
+
+h4, .h4 {
+  @apply text-2xl font-bold leading-snug;
+}
+
+h5, .h5 {
+  @apply text-xl font-bold leading-snug;
+}
+
+h6, .h6 {
+  @apply text-lg font-bold leading-snug;
+}
+
+// Bold and Strong
+b, strong {
+  @apply font-bold;
+}
+
+// Paragraph
+p {
+  @apply text-base leading-relaxed;
+}
+
+// Small
+small {
+  @apply text-sm;
+}
+
+// Anchor
+a {
+  @apply text-primary hover:text-primary-foreground;
+}

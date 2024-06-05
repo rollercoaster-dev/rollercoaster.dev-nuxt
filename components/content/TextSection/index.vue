@@ -11,13 +11,15 @@ const headlineLevel = computed(()=>(`h${props.hLevel}`))
 </script>
 
 <template>
-  <section>
-    <component :is="headlineLevel">
+  <section class="container my-12 space-y-4">
+  <div class="w-[800px] mx-auto">
+    <component :is="headlineLevel" class="mb-4">
       {{headline}}
     </component>
     <div class="body">
       <ContentStrapiBlocks :blocks="body" />/
     </div>
+  </div>
   </section>
 
 </template>

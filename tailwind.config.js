@@ -14,6 +14,25 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    textContainer: {
+      center: true,
+      padding: "4rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
+      fontSize: {
+        xs: '0.75rem',   // 12px
+        sm: '0.875rem',  // 14px
+        base: '1.125rem',// 18px
+        lg: '1.25rem',   // 20px
+        xl: '1.5rem',    // 24px
+        '2xl': '1.875rem',// 30px
+        '3xl': '2.25rem', // 36px
+        '4xl': '3rem',    // 48px
+        '5xl': '4rem',    // 64px
+      },
+
     extend: {
       colors: {
         border: "hsl(var(--border))",

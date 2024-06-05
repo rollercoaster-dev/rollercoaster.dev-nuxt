@@ -87,7 +87,7 @@ export const useStrapiGraphql = () => {
   };
   const getCleanComponents = (page: PageAttributes ): PageComponent[] => {
     const components =  page.components?.map((component: StrapiPageComponent) => {
-      const componentName = component.__typename.replace('Component', '');
+      const componentName = component.__typename?.replace('Component', '');
       console.log({component})
       const media =
         component.__typename === 'ComponentDisplayHero'

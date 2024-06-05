@@ -2,7 +2,7 @@ import DisplayHeroSection from "@/components/display/HeroSection/index.vue"
 import type {BlocksRenderNode} from "@/components/content/StrapiBlocks/types/blocks";
 
 export type HeroSectionProps = {
-    title: string;
+    headline: string;
     body: BlocksRenderNode[]
     media: {
         url: string;

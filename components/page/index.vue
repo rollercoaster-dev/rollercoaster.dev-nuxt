@@ -5,19 +5,13 @@
 </template>
 
 <script setup lang="ts">
-import {useStrapiQueries} from "@/composables/useStrapiQueries"
 import {useStrapiGraphql} from "@/composables/useStrapiGraphql";
-definePageMeta({
-  name: "home"
-})
-const route = useRoute()
+const router = useRouter()
 
+router.getRoutes()
 
-onMounted(()=>{
-  console.log({route: route.name})
-})
 const title = 'rollercoaster.dev'
-const description = 'Exploring the intersection of technology, art and learning.'
+const description = ''
 
 const {getPage, getCleanComponents} = useStrapiGraphql()
 const home = await getPage("home")
