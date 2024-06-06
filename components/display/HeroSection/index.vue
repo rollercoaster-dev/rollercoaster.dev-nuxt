@@ -8,7 +8,7 @@ defineProps<HeroSectionProps>();
 <template>
 
   <section class="container space-y-2 my-12 flex flex-col justify-center items-center" >
-    <h1 class="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+    <h1 class="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
       {{ headline }}
     </h1>
     <ContentStrapiBlocks :blocks="body" />

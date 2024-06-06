@@ -4,7 +4,7 @@ import ContentTextSection from "@/components/content/TextSection/index.vue";
 
 export type TextSectionProps = {
     headline: string;
-    hLevel: 1 | 2 | 3 | 4 | 5 | 6;
+    headlineLevel?: 1 | 2 | 3 | 4 | 5 | 6;
     body: BlocksRenderNode[]
 }
 

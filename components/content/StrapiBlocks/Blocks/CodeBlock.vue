@@ -22,20 +22,21 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-html="codeHtml" class="code-block m-4"></div>
+  <div v-html="codeHtml" class="code-block my-4"></div>
 </template>
 
 <style lang="scss" scoped>
 @import "@/assets/scss/_variables.scss";
 
 .code-block {
-
-  :deep() {
-    pre {
+  :deep(pre) {
       border-radius: 4px;
       border: 1px solid $gray-dark;
       padding: 1.5rem !important;
-    }
+      max-width: 100%;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
   }
 }
 </style>

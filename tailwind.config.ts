@@ -13,13 +13,6 @@ module.exports = {
         "2xl": "1400px",
       },
     },
-    textContainer: {
-      center: true,
-      padding: "4rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
       fontSize: {
         xs: '0.75rem',   // 12px
         sm: '0.875rem',  // 14px

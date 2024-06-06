@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{ pageTitle }}</h1>
     <template v-if="components">
       <component
           v-for="(component, index) in components"
@@ -20,8 +19,6 @@ const props = defineProps({
 
 const route = useRoute();
 const {getPage, getCleanComponents} = useStrapiGraphql();
-
 const page = await getPage(props.pageName);
-console.log({pageName: props.pageName, route, page})
 const components = computed(() => getCleanComponents(page));
 </script>

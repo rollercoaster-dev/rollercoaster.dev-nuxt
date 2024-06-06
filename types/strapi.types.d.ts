@@ -4,6 +4,7 @@ export type ComponentContentTextSection = {
   __typename: 'ComponentContentTextSection';
   id: string;
   headline: string;
+  headlineLevel: number;
   body: BlocksRenderNode[];
 };
 
@@ -55,6 +56,7 @@ export type PageLinkAttributes = {
   title: string;
   slug: string;
 };
+
 export type PageLinksResponse = {
   pages: {
     data: PageLinks[];
@@ -63,3 +65,27 @@ export type PageLinksResponse = {
 export type PageResponse = {
   Page: Page;
 };
+
+interface Link {
+  label: string;
+  url: string;
+}
+
+interface NavigationAttributes {
+  name: string;
+  link: Link[];
+}
+
+interface NavigationData {
+  attributes: NavigationAttributes;
+}
+
+interface NavigationsData {
+  data: NavigationData[];
+}
+
+interface NavLinksResponse {
+
+    navigations: NavigationsData;
+
+}

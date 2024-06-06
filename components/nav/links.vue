@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import { defineProps, onMounted } from 'vue'
-// import { NuxtLink } from '#app'
+import type {Link} from "@/types/strapi.types";
 
-export type NavLinkItem = {
-  title: string;
-  url: string;
-}
-
-// Correctly define props
 const props = defineProps({
-  items: Array as () => NavLinkItem[]
+  items: Array as () => Link[]
 })
 
 </script>
@@ -17,7 +11,7 @@ const props = defineProps({
 <template>
   <nav class="ml-auto flex gap-4 sm:gap-6">
     <template v-for="(item, index) in props.items" :key="index">
-      <NuxtLink class="text-sm font-medium hover:text-neon-500 transition-colors" :to="item.url">{{ item.title }}
+      <NuxtLink class="text-sm font-medium hover:text-neon-500 transition-colors" :to="item.url">{{ item.label }}
       </NuxtLink>
     </template>
   </nav>

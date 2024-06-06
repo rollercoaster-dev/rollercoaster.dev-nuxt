@@ -1,5 +1,10 @@
-import type {PageAttributes, PageLinksResponse, StrapiPageComponent,} from '@/types/strapi.types';
-import type {NavLinkItem} from '@/components/nav/links.vue';
+import type {
+  Link,
+  NavLinksResponse,
+  PageAttributes,
+  PageLinksResponse,
+  StrapiPageComponent,
+} from '@/types/strapi.types';
 import type {HeroSectionProps,} from '@/components/display/HeroSection/HeroSection.types';
 import type {PageComponent} from '@/types/global';
 import type {TextSectionProps} from "@/components/content/TextSection/TextSection.types";
@@ -9,32 +14,41 @@ import DisplayHeroSection from "@/components/display/HeroSection/index.vue";
 
 export const useStrapiGraphql = () => {
   const runtimeConfig = useRuntimeConfig()
-  const getPageLinks = async () => {
+  const getPageLinks = async (navigationNames: string | string[]): Promise<Record<string,Link[]>> => {
     const query = gql`
-      query {
-        pages {
+      query ($navigationNames: [String!]!) {
+        navigations(filters: { name: { in: $navigationNames } }) {
           data {
             attributes {
-              title
-              slug
+              name
+              link {
+                label
+                url
+              }
             }
           }
         }
       }
     `;
 
-    const { data } = await useAsyncQuery<PageLinksResponse>(query);
+    const variables = {
+      navigationNames: Array.isArray(navigationNames) ? navigationNames : [navigationNames],
+    };
 
-    function parsePageData(
-      pagesResponse: PageLinksResponse | null
-    ): NavLinkItem[] {
-      if (!pagesResponse) return [];
-      return pagesResponse.pages.data.map((page) => ({
-        title: page.attributes.title,
-        url: page.attributes.slug,
-      }));
+    const { data } = await useAsyncQuery<NavLinksResponse>(query, variables);
+
+    function parsePageData(pagesResponse: NavLinksResponse | null): Record<string,Link[]> {
+      if (!pagesResponse) {
+        return {};
+      }
+
+      return pagesResponse.navigations.data.reduce((acc, navigation) => {
+        acc[navigation.attributes.name] = navigation.attributes.link;
+        return acc;
+      }, {} as { [name: string]: Link[] });
     }
-    return data.value !== null ? parsePageData(data.value) : [];
+
+    return data.value !== null ? parsePageData(data.value) : {};
   };
 
   const getPage = async (page: string) => {
@@ -62,6 +76,7 @@ export const useStrapiGraphql = () => {
                 ... on ComponentContentTextSection {
                   id
                   headline
+                  headlineLevel
                   body
                 }
               }
@@ -107,6 +122,7 @@ export const useStrapiGraphql = () => {
             type: 'ContentTextSection',
             props: {
               headline: component.headline,
+              headlineLevel: component.__typename === "ComponentContentTextSection" ? component.headlineLevel : undefined,
               body: component.body,
             } as unknown as TextSectionProps,
           };
@@ -118,3 +134,15 @@ export const useStrapiGraphql = () => {
 
   return { getPageLinks, getPage, getCleanComponents };
 };
+
+
+`query {
+  navigations: navigations(filters: name: {eq:main}) {
+    data {
+      attributes {
+        Link
+        name
+      }
+    }
+  }
+ }`

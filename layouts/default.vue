@@ -12,15 +12,10 @@
 import {useStrapiGraphql} from "@/composables/useStrapiGraphql";
 
 const {getPageLinks} = useStrapiGraphql()
-const pageLinks = await getPageLinks()
-const navItems = pageLinks.map(item => {
-  if (item.url === "home") item.url = "/"
-  return item
-})
-const footerLinks = [
-  {title: 'Impressum', url: '/impressum'},
-  {title: 'Privacy Policy', url: '/privacy'},
-]
+const {main, footer} = await getPageLinks(["main", "footer"])
+const navItems = main;
+const footerLinks = footer;
+
 const currentYear = new Date().getFullYear();
 const copyrightText = `© ${currentYear} rollercoaster.dev. All rights reserved.`;
 </script>
