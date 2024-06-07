@@ -3,7 +3,7 @@
     <NuxtLink to="/" class="flex items-center justify-center">
       <NavLogo class="h-6 w-6 " />
     </NuxtLink>
-    <NavLinks :items="navItems" />
+    <NavLinks v-if="navItems" :items="navItems" />
 
   </header>
 </template>

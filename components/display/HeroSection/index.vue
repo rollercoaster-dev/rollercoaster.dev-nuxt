@@ -2,7 +2,13 @@
 import type { HeroSectionProps } from "@/components/display/HeroSection/HeroSection.types";
 import {AspectRatio} from "@/components/ui/aspect-ratio";
 
-defineProps<HeroSectionProps>();
+const props = defineProps<HeroSectionProps>();
+
+const renderBlocks = computed<boolean>(()=>{
+  return !(typeof props.body === "string")
+})
+
+
 </script>
 
 <template>
@@ -11,9 +17,10 @@ defineProps<HeroSectionProps>();
     <h1 class="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
       {{ headline }}
     </h1>
-    <ContentStrapiBlocks :blocks="body" />
+    <ContentStrapiBlocks v-if="!(typeof body === 'string')" :blocks="body" />
+    <p v-else>{{body}}</p>
     <div class="w-3/4 max-[640px]:w-full">
-    <AspectRatio :ratio="16 / 9" class="bg-muted mx-auto">
+    <AspectRatio v-if="media" :ratio="16 / 9" class="bg-muted mx-auto">
       <img
           :src="media.url"
           :alt="media.alt"

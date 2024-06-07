@@ -91,7 +91,8 @@ export const useStrapiGraphql = () => {
     const { data } = await useAsyncQuery<PageLinksResponse>(query);
     return data.value?.pages.data[0].attributes as PageAttributes;
   };
-  const getCleanComponents = (page: PageAttributes ): PageComponent[] => {
+  const getCleanComponents = (page: PageAttributes ): PageComponent[] | undefined => {
+    if (!page || page.components?.length === 0) return;
     return page.components?.map((component: StrapiPageComponent) => {
       const componentName = component.__typename?.replace('Component', '');
       const media =

@@ -1,39 +1,29 @@
-import type { PageAttributes } from '@/types/strapi.types';
+import type {PageAttributes} from '@/types/strapi.types';
 
 export const useStrapiQueries = () => {
-  const config = useRuntimeConfig();
-  const API_URL =
-    `${config.public.strapiUrl}` || 'http://localhost:1337';
+    const config = useRuntimeConfig();
+    const API_URL = `${config.public.strapiUrl}` || 'http://localhost:1337';
 
-  const fetchStrapiData = async <T>(endpoint: string, token?: string): Promise<T> => {
-    try {
-      const headers: Record<string, string> = {};
+    const fetchStrapiData = async <T>(endpoint: string): Promise<T> => {
+        try {
+            console.log(`${API_URL}/${endpoint}`);
+            const { data, error } = await useFetch<T>(`/strapi/${endpoint}`);
 
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-      } else {
-        headers['Authorization'] = `Bearer ${config.private.strapiToken}`;
-      }
+            if (error.value) {
+                throw error.value;
+            }
 
-      const { data, error } = await useAsyncData(
-          endpoint,
-          () => $fetch<T>(`${API_URL}/${endpoint}`, { headers })
-      );
+            if (!data.value) {
+                console.error("No data received for endpoint:", endpoint);
+                throw new Error(`No data received for endpoint: ${endpoint}`);
+            }
 
-      if (error.value) {
-        throw error.value;
-      }
+            return data.value as T;
+        } catch (error) {
+            console.error("fetchStrapiData", error);
+            throw error;
+        }
+    };
 
-      if (!data.value) {
-        console.error("No data received for endpoint:", endpoint);
-        throw new Error(`No data received for endpoint: ${endpoint}`);
-      }
-      return data.value as T;
-    } catch (error) {
-      console.error("fetchStrapiData", error);
-      throw error;
-    }
-  };
-
-  return { fetchStrapiData };
+    return {fetchStrapiData};
 };
