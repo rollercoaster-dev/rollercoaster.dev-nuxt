@@ -1,6 +1,7 @@
 # Thanks https://vamsimadduluri.com/optimizing-nuxt-3-deployment-with-bun-a-docker-based-approach/
 # Use the official Bun image for the initial stages
 # See all versions at https://hub.docker.com/r/oven/bun/tags
+
 FROM oven/bun:1 as base
 WORKDIR /usr/src/app
 
