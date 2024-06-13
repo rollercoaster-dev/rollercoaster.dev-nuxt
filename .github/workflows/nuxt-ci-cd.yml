@@ -1,0 +1,48 @@
+name: CI/CD Pipeline with GitHub Container Registry
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency: production
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Login to GitHub Container Registry
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/nuxt.rollercoaster.dev:latest
+
+      - name: Set up SSH key
+        run: |
+          mkdir -vp ~/.ssh
+          echo "${{ secrets.NUXT_KEY }}" > ~/.ssh/nuxt_deploy_key
+          chmod -v 600 ~/.ssh/nuxt_deploy_key
+          ls -la ~/.ssh
+          ssh-keyscan -p 666 212.132.110.131 >> ~/.ssh/known_hosts
+
+      - name: Deploy to Server
+        run: |
+          echo "Deploying to server..."
+          ssh -i ~/.ssh/nuxt_deploy_key -o IdentitiesOnly=yes -p 666 dev@212.132.110.131 "\
+            docker pull ghcr.io/${{ github.repository_owner }}/nuxt.rollercoaster.dev:latest && \
+            docker stop nuxt_container && docker rm nuxt_container && \
+            docker run -d --name nuxt_container -p 3000:3000 ghcr.io/${{ github.repository_owner }}/nuxt.rollercoaster.dev:latest"

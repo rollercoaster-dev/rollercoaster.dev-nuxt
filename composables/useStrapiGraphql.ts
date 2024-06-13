@@ -89,7 +89,16 @@ export const useStrapiGraphql = () => {
       }
     `;
     const { data } = await useAsyncQuery<PageLinksResponse>(query);
-    return data.value?.pages.data[0].attributes as PageAttributes;
+    console.log(data.value?.pages.data)
+    if (data.value?.pages.data && data.value?.pages.data.length > 0) {
+      return data.value?.pages.data[0].attributes as PageAttributes;
+    }
+    throw createError({
+      statusCode: 404,
+      message: 'not found',
+      fatal: true
+    })
+
   };
   const getCleanComponents = (page: PageAttributes ): PageComponent[] | undefined => {
     if (!page || page.components?.length === 0) return;

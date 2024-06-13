@@ -3,7 +3,7 @@ import type {BlocksRenderNode} from "@/components/content/StrapiBlocks/types/blo
 
 export type HeroSectionProps = {
     headline: string;
-    body: BlocksRenderNode[] | string;
+    body?: BlocksRenderNode[] | string;
     media?: {
         url: string;
         alt: string;

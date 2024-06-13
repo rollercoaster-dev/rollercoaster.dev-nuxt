@@ -17,8 +17,9 @@ const renderBlocks = computed<boolean>(()=>{
     <h1 class="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
       {{ headline }}
     </h1>
-    <ContentStrapiBlocks v-if="!(typeof body === 'string')" :blocks="body" />
-    <p v-else>{{body}}</p>
+    <ContentStrapiBlocks v-if=" body && !(typeof body === 'string')" :blocks="body" />
+    <p v-else-if="body" >{{body}}</p>
+    <div v-else><slot/></div>
     <div class="w-3/4 max-[640px]:w-full">
     <AspectRatio v-if="media" :ratio="16 / 9" class="bg-muted mx-auto">
       <img
