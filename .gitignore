@@ -17,6 +17,7 @@ logs
 .DS_Store
 .fleet
 .idea
+yarn-error.log
 
 # Local env files
 .env
