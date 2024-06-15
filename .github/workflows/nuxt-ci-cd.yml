@@ -44,5 +44,8 @@ jobs:
           echo "Deploying to server..."
           ssh -i ~/.ssh/nuxt_deploy_key -o IdentitiesOnly=yes -p 666 dev@212.132.110.131 "\
             docker pull ghcr.io/${{ github.repository_owner }}/nuxt.rollercoaster.dev:latest && \
-            docker stop nuxt_container && docker rm nuxt_container && \
+            if docker ps -a --format '{{.Names}}' | grep -q '^nuxt_container$'; then \
+              docker stop nuxt_container && docker rm nuxt_container; \
+            fi && \
             docker run -d --name nuxt_container -p 3000:3000 ghcr.io/${{ github.repository_owner }}/nuxt.rollercoaster.dev:latest"
+          
