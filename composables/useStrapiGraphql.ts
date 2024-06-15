@@ -11,10 +11,15 @@ import type {TextSectionProps} from "@/components/content/TextSection/TextSectio
 import ContentTextSection from "@/components/content/TextSection/index.vue";
 import DisplayHeroSection from "@/components/display/HeroSection/index.vue";
 
+export type ErrorInfo = {
+  statusCode: number;
+  message: string;
+  fatal: boolean;
+};
 
 export const useStrapiGraphql = () => {
   const runtimeConfig = useRuntimeConfig()
-  console.log({strapi: runtimeConfig.public})
+
   const getPageLinks = async (navigationNames: string | string[]): Promise<Record<string,Link[]>> => {
     const query = gql`
       query ($navigationNames: [String!]!) {
@@ -38,77 +43,98 @@ export const useStrapiGraphql = () => {
 
     const { data } = await useAsyncQuery<NavLinksResponse>(query, variables);
 
-    function parsePageData(pagesResponse: NavLinksResponse | null): Record<string,Link[]> {
+    function parseNavData(pagesResponse: NavLinksResponse | null): Record<string,Link[]> {
       if (!pagesResponse) {
         return {};
       }
 
       return pagesResponse.navigations.data.reduce((acc, navigation) => {
+        if (!navigation.attributes) return acc;
         acc[navigation.attributes.name] = navigation.attributes.link;
         return acc;
       }, {} as { [name: string]: Link[] });
     }
 
-    return data.value !== null ? parsePageData(data.value) : {};
+    return data.value !== null ? parseNavData(data.value) : {};
   };
 
-  const getPage = async (page: string) => {
+  const getPage = async (pageSlug: string) => {
     const query = gql`
-      query {
-        pages: pages(filters: { slug: { eq: "${page}" } }) {
-          data {
-            attributes {
-              title
-              slug
-              components {
-                __typename
-                ... on ComponentDisplayHero {
-                  id
-                  headline
-                  body
-                  media {
-                    data {
-                      attributes {
-                        url
-                      }
+    query GetPage($pageSlug: String!) {
+      pages(filters: { slug: { eq: $pageSlug } }) {
+        data {
+          attributes {
+            title
+            slug
+            components {
+              __typename
+              ... on ComponentDisplayHero {
+                id
+                headline
+                body
+                media {
+                  data {
+                    attributes {
+                      url
                     }
                   }
                 }
-                ... on ComponentContentTextSection {
-                  id
-                  headline
-                  headlineLevel
-                  body
-                }
               }
-              createdAt
-              updatedAt
-              publishedAt
+              ... on ComponentContentTextSection {
+                id
+                headline
+                headlineLevel
+                body
+              }
             }
+            createdAt
+            updatedAt
+            publishedAt
           }
         }
       }
-    `;
-    const { data } = await useAsyncQuery<PageLinksResponse>(query);
-    console.log(data.value?.pages.data)
-    if (data.value?.pages.data && data.value?.pages.data.length > 0) {
-      return data.value?.pages.data[0].attributes as PageAttributes;
     }
-    throw createError({
-      statusCode: 404,
-      message: 'not found',
-      fatal: true
-    })
+  `;
 
+    try {
+      const { data } = await useAsyncQuery<PageLinksResponse>(query, { pageSlug });
+      const pageData = data.value?.pages.data[0];
+
+      if (!pageData || !pageData.attributes) {
+        throw createError({
+          statusCode: 404,
+          message: 'Page not found',
+          fatal: true
+        });
+      }
+      console.log({attributes: pageData.attributes});
+      if(pageData.attributes) {
+      return pageData.attributes;
+      }
+    } catch (error: unknown) {
+      console.error("fetchStrapiData", error);
+        const castError = error as ErrorInfo;
+        throw createError({
+          statusCode: castError.statusCode || 500,
+          message: castError.message || 'An unexpected error occurred',
+          fatal: true
+        });
+
+    }
   };
+
   const getCleanComponents = (page: PageAttributes ): PageComponent[] | undefined => {
     if (!page || page.components?.length === 0) return;
     return page.components?.map((component: StrapiPageComponent) => {
       const componentName = component.__typename?.replace('Component', '');
-      const media =
-          component.__typename === 'ComponentDisplayHero'
-              ? runtimeConfig.public.strapiBaseUrl + component.media?.data.attributes.url
-              : '';
+
+      const media = () => {
+        if (component.__typename !== 'ComponentDisplayHero') return "";
+        console.log("component.media?.data", component.media?.data)
+        if (!component.media?.data) return ""
+        return runtimeConfig.public.strapiBaseUrl + component.media?.data.attributes?.url
+
+      }
       const alt =
           component.__typename === 'ComponentDisplayHero' ? component.alt : '';
       switch (componentName) {
@@ -121,7 +147,7 @@ export const useStrapiGraphql = () => {
               headline: component.headline,
               body: component.body,
               media: {
-                url: media,
+                url: media(),
                 alt,
               },
             } as unknown as HeroSectionProps,

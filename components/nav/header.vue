@@ -12,7 +12,7 @@
 import type {Link} from "@/types/strapi.types";
 
 export type NavHeaderProps = {
-  navItems: Link[]
+  navItems: Link[] | undefined
 }
 defineProps<NavHeaderProps>()
 

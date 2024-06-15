@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
 import robot from "assets/images/404.png";
-definePageMeta({
-  layout: 'error'
-})
+
 const error = useError();
 
 const props = defineProps({

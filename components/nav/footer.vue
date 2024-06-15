@@ -4,7 +4,7 @@ import type {Link} from "@/types/strapi.types";
 
 export type FooterProps = {
   copyrightText: String;
-  links: Link[];
+  links?: Link[];
 }
 
 defineProps<FooterProps>()
@@ -16,6 +16,7 @@ defineProps<FooterProps>()
       {{ copyrightText }}
     </p>
     <nav class="flex gap-4 sm:gap-6 mt-2 sm:mt-0">
+      <template v-if="links">
       <NuxtLink
           v-for="(link, index) in links"
           :key="index"
@@ -23,6 +24,7 @@ defineProps<FooterProps>()
           class="text-xs hover:text-neon-500 transition-colors">
         {{ link.label }}
       </NuxtLink>
+      </template>
     </nav>
   </footer>
 </template>

@@ -6,20 +6,9 @@ const strapiData = ref()
 const isLoading = ref(true);
 const error = ref();
 
-onMounted(async () => {
-  try {
-    const {data} = await useFetch(`/strapi/pages`);
-    strapiData.value = data.value
-    console.log(strapiData.value)
-    if (strapiData.value) {
+
       router.replace({path: '/home'});
-    }
-  } catch (err) {
-    error.value = err;
-  } finally {
-    isLoading.value = false;
-  }
-});
+
 </script>
 
 <template>
@@ -27,8 +16,9 @@ onMounted(async () => {
     <BaseSpinner></BaseSpinner>
   </div>
   <div v-else-if="error">{{ error }}</div>
-  <DisplayHeroSection v-else-if="!strapiData" headline="rollercoaster.dev"
-                      body="We're having technical issues. Please come back later."
-                      :media="{url:Robot, alt:'Robot has no clue what\'s going on'}"></DisplayHeroSection>
+  <DisplayHeroSection v-else-if="!strapiData"
+    headline="rollercoaster.dev"
+    body="Welcome to rollercoaster.dev"
+  ></DisplayHeroSection>
 
 </template>

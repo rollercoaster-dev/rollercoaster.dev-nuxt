@@ -21,7 +21,8 @@ const renderBlocks = computed<boolean>(()=>{
     <p v-else-if="body" >{{body}}</p>
     <div v-else><slot/></div>
     <div class="w-3/4 max-[640px]:w-full">
-    <AspectRatio v-if="media" :ratio="16 / 9" class="bg-muted mx-auto">
+
+    <AspectRatio v-if="media && media.url" :ratio="16 / 9" class="bg-muted mx-auto">
       <img
           :src="media.url"
           :alt="media.alt"
