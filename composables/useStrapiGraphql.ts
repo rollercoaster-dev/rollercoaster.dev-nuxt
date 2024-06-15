@@ -107,7 +107,6 @@ export const useStrapiGraphql = () => {
           fatal: true
         });
       }
-      console.log({attributes: pageData.attributes});
       if(pageData.attributes) {
       return pageData.attributes;
       }
@@ -130,7 +129,6 @@ export const useStrapiGraphql = () => {
 
       const media = () => {
         if (component.__typename !== 'ComponentDisplayHero') return "";
-        console.log("component.media?.data", component.media?.data)
         if (!component.media?.data) return ""
         return runtimeConfig.public.strapiBaseUrl + component.media?.data.attributes?.url
 

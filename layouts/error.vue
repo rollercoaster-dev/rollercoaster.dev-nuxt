@@ -11,7 +11,6 @@ const copyrightText = `© ${currentYear} rollercoaster.dev. All rights reserved.
 
 onMounted(()=>{
   if (!main) {
-    console.log({main})
     router.replace({path: '/'});
   }
 })

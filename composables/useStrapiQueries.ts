@@ -6,7 +6,6 @@ export const useStrapiQueries = () => {
 
     const fetchStrapiData = async <T>(endpoint: string): Promise<T> => {
         try {
-            console.log(`${API_URL}/${endpoint}`);
             const { data, error } = await useFetch<T>(`/strapi/${endpoint}`);
 
             if (error.value) {

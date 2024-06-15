@@ -5,7 +5,6 @@ const props = defineProps({
 
 const {getPage, getCleanComponents} = useStrapiGraphql();
 const page = await getPage(props.pageName);
-console.log({page})
 const components = computed(() => getCleanComponents(page));
 </script>
 <template>
