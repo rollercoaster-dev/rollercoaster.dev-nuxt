@@ -46,6 +46,6 @@ jobs:
             docker pull ghcr.io/${{ github.repository_owner }}/nuxt.rollercoaster.dev:latest && \
             docker stop nuxt_container && docker rm nuxt_container && \
             docker run -d --name nuxt_container -p 3000:3000 \
-              -e STRAPI_URL=${{ secrets.STRAPI_URL }} \
+              -e STRAPI_URL=https://strapi.rollercoaster.dev \
               -e STRAPI_TOKEN=${{ secrets.STRAPI_TOKEN }} \
               ghcr.io/${{ github.repository_owner }}/nuxt.rollercoaster.dev:latest"
