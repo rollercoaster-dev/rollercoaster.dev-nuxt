@@ -24,9 +24,13 @@ FROM base AS prerelease
 COPY --from=install /temp/dev/node_modules /usr/src/app/node_modules
 COPY . /usr/src/app
 
+# Set environment variables
+ARG STRAPI_URL
+ARG STRAPI_TOKEN
+
 # Set NODE_ENV to production and run the build
 ENV NODE_ENV=production
-RUN bun --bun run build
+RUN bun run build --build-arg STRAPI_URL=${STRAPI_URL} --build-arg STRAPI_TOKEN=${STRAPI_TOKEN}
 
 # Copy production dependencies and built files into the final image
 # Start fresh from the base to reduce the final image size
@@ -35,12 +39,6 @@ WORKDIR /usr/src/app
 COPY --from=install /temp/prod/node_modules /usr/src/app/node_modules
 COPY --from=prerelease /usr/src/app/.output /usr/src/app/.output
 COPY package.json /usr/src/app/
-
-# Set environment variables
-ARG STRAPI_URL
-ARG STRAPI_TOKEN
-ENV STRAPI_URL=$STRAPI_URL
-ENV STRAPI_TOKEN=$STRAPI_TOKEN
 
 # Ensure the container runs as a non-root user
 USER bun
