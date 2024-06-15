@@ -14,6 +14,7 @@ import DisplayHeroSection from "@/components/display/HeroSection/index.vue";
 
 export const useStrapiGraphql = () => {
   const runtimeConfig = useRuntimeConfig()
+  console.log({strapi: runtimeConfig.public})
   const getPageLinks = async (navigationNames: string | string[]): Promise<Record<string,Link[]>> => {
     const query = gql`
       query ($navigationNames: [String!]!) {
