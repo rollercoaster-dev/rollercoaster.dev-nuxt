@@ -35,6 +35,7 @@ export type StrapiPageComponent =
 export type PageAttributes = {
   title: string;
   slug: string;
+  description: string;
   components?: StrapiPageComponent[];
   createdAt?: string;
   updatedAt?: string;
@@ -47,10 +48,7 @@ export type Page = {
   };
 };
 export type PageLinks = {
-  attributes: {
-    title: string;
-    slug: string;
-  };
+  attributes: PageAttributes
 };
 export type PageLinkAttributes = {
   title: string;

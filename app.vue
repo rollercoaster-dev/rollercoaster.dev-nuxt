@@ -2,6 +2,7 @@
 // useDarkMode()
 </script>
 <template>
+  <NuxtPwaManifest />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

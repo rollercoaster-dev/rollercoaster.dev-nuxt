@@ -58,7 +58,7 @@ export const useStrapiGraphql = () => {
     return data.value !== null ? parseNavData(data.value) : {};
   };
 
-  const getPage = async (pageSlug: string) => {
+  const getPage = async (pageSlug: string): Promise<PageAttributes | undefined> => {
     const query = gql`
     query GetPage($pageSlug: String!) {
       pages(filters: { slug: { eq: $pageSlug } }) {
@@ -66,6 +66,7 @@ export const useStrapiGraphql = () => {
           attributes {
             title
             slug
+            description
             components {
               __typename
               ... on ComponentDisplayHero {
@@ -99,17 +100,19 @@ export const useStrapiGraphql = () => {
     try {
       const { data } = await useAsyncQuery<PageLinksResponse>(query, { pageSlug });
       const pageData = data.value?.pages.data[0];
-
+      console.log({pageData})
       if (!pageData || !pageData.attributes) {
-        throw createError({
+        console.log({pageData})
+        return
+        /*throw createError({
           statusCode: 404,
           message: 'Page not found',
           fatal: true
-        });
+        });*/
       }
-      if(pageData.attributes) {
+      // if(pageData.attributes && pageData.attributes satisfies PageAttributes) {
       return pageData.attributes;
-      }
+      // }
     } catch (error: unknown) {
       console.error("fetchStrapiData", error);
         const castError = error as ErrorInfo;

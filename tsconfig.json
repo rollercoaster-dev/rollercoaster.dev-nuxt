@@ -8,7 +8,9 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-
+    "types": [
+      "vite-plugin-pwa/vue"
+    ]
   },
 
 }
