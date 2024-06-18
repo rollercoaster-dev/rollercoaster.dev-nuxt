@@ -19,6 +19,11 @@ export type StrapiMedia = {
   };
 };
 
+export type ComponentBaseLink = {
+  label: string;
+  url: string;
+}
+
 export type ComponentDisplayHeroSection = {
   __typename: 'ComponentDisplayHero';
   id: number;
@@ -26,6 +31,7 @@ export type ComponentDisplayHeroSection = {
   body: BlocksRenderNode[];
   media: StrapiMedia;
   alt: string;
+  CTA: ComponentBaseLink
 };
 
 export type StrapiPageComponent =

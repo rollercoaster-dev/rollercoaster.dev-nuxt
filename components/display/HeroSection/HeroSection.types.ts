@@ -1,5 +1,6 @@
 import DisplayHeroSection from "@/components/display/HeroSection/index.vue"
 import type {BlocksRenderNode} from "@/components/content/StrapiBlocks/types/blocks";
+import type {ComponentBaseLink} from "~/types/strapi.types";
 
 export type HeroSectionProps = {
     headline: string;
@@ -8,6 +9,7 @@ export type HeroSectionProps = {
         url: string;
         alt: string;
     }
+    CTA?: ComponentBaseLink
 }
 
 export type HeroSectionComponent = {

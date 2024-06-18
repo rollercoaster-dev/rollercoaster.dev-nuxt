@@ -4,11 +4,6 @@ import {AspectRatio} from "@/components/ui/aspect-ratio";
 
 const props = defineProps<HeroSectionProps>();
 
-const renderBlocks = computed<boolean>(()=>{
-  return !(typeof props.body === "string")
-})
-
-
 </script>
 
 <template>
@@ -29,6 +24,9 @@ const renderBlocks = computed<boolean>(()=>{
           class="rounded-md object-cover w-full h-full"
       >
     </AspectRatio>
+    </div>
+    <div v-if="CTA && CTA.url" class="cta-wrapper">
+      <NuxtLink class="" :to="CTA.url"><Button>{{CTA.label}}</Button></NuxtLink>
     </div>
   </section>
 </template>

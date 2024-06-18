@@ -2,7 +2,7 @@
 
 const route = useRoute()
 
-const pageName = computed(() => !route.params.pageName ? route.params.pageName : "home" )
+const pageName = computed(() => route.params.pageName as string || "_landing" )
 
 </script>
 <template>
