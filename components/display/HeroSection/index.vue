@@ -26,7 +26,7 @@ const props = defineProps<HeroSectionProps>();
     </AspectRatio>
     </div>
     <div v-if="CTA && CTA.url" class="cta-wrapper">
-      <NuxtLink class="" :to="CTA.url"><Button>{{CTA.label}}</Button></NuxtLink>
+      <NuxtLink class="" :to="CTA.url"><Button class="m-4">{{CTA.label}}</Button></NuxtLink>
     </div>
   </section>
 </template>

@@ -6,15 +6,14 @@ const props = defineProps({
 const {getPage, getCleanComponents} = useStrapiGraphql();
 const page = await getPage(props.pageName);
 const components = computed(() => getCleanComponents(page));
-// const title = ()=>`rollercoaster.dev ${ page.title ? `| ${page.title}` : ""  }`;
-//
-// defineOgImageComponent('Frame')
-//   useSeoMeta({
-//     title: title(),
-//     ogTitle: title(),
-//     description: page.description,
-//     ogDescription: page.description,
-//   })
+const title = ()=>`rollercoaster.dev ${ page.title ? `| ${page.title}` : ""  }`;
+
+  useSeoMeta({
+    title: title(),
+    ogTitle: title(),
+    description: page.description,
+    ogDescription: page.description,
+  })
 
 </script>
 <template>
